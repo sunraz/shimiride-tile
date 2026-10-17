@@ -28,7 +28,7 @@ class LocationTileService : TileService() {
         if (!granted) {
             tile.state = Tile.STATE_UNAVAILABLE
         } else {
-            tile.state = if (running) Tile.STATE_ON else Tile.STATE_OFF
+            tile.state = if (running) Tile.STATE_ACTIVE else Tile.STATE_INACTIVE
         }
         tile.subtitle = getString(if (running) R.string.tile_on else R.string.tile_off)
         tile.updateTile()
