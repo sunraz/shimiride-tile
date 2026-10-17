@@ -33,6 +33,7 @@
             android:name=".LocationTileService"
             android:label="@string/tile_label"
             android:icon="@drawable/ic_tile"
+            android:exported="true"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action android:name="android.service.quicksettings.action.QS_TILE" />
