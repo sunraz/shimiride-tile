@@ -17,7 +17,7 @@ import android.os.IBinder
 import android.Manifest
 import android.content.pm.PackageManager
 import androidx.core.app.NotificationCompat
-import kotlinx.coroutines.*
+import java.util.concurrent.Executors
 import org.json.JSONObject
 import java.io.OutputStreamWriter
 import java.net.HttpURLConnection
@@ -26,7 +26,7 @@ import java.net.URL
 class LocationForegroundService : Service() {
 
     private lateinit var locationManager: LocationManager
-    private val scope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    private val executor = Executors.newSingleThreadExecutor()
     private var lastSentAt = 0L
 
     private val locationListener = object : LocationListener {
@@ -34,7 +34,7 @@ class LocationForegroundService : Service() {
             val now = System.currentTimeMillis()
             if (now - lastSentAt < Constants.INTERVAL_MS) return
             lastSentAt = now
-            scope.launch { report(location) }
+            executor.execute { report(location) }
         }
         override fun onStatusChanged(p: String?, s: Int, b: Bundle?) {}
         override fun onProviderEnabled(p: String) {}
@@ -82,7 +82,7 @@ class LocationForegroundService : Service() {
 
     override fun onDestroy() {
         locationManager.removeUpdates(locationListener)
-        scope.cancel()
+        executor.shutdownNow()
         isRunning = false
         super.onDestroy()
     }
