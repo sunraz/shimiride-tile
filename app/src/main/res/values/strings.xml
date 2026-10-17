@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ShimiRide אריח</string>
+    <string name="tile_label">שידור מיקום</string>
+    <string name="tile_on">פעיל</string>
+    <string name="tile_off">כבוי</string>
+    <string name="notif_title">שידור מיקום פעיל</string>
+    <string name="notif_text">ShimiRide מדווח מיקום</string>
+    <string name="notif_stop">עצירה</string>
+</resources>
